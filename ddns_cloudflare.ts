@@ -13,6 +13,7 @@ type DNSRecord = {
   id: string;
 };
 
+// Get initial A record, and return its id and set ip address
 async function getCloudflareDNSRecord(): Promise<DNSRecord> {
   const req = new Request(
     `https://api.cloudflare.com/client/v4/zones/${env["ZONE_ID"]}/dns_records?type=A&name=${env["RECORD_NAME"]}`,
@@ -39,6 +40,7 @@ async function getCloudflareDNSRecord(): Promise<DNSRecord> {
   }
 }
 
+// Update DNS record's content by id
 async function updateCloudflareDNSRecordIP(
   recordId: string,
   updatedPublicIP: string
@@ -66,6 +68,7 @@ async function updateCloudflareDNSRecordIP(
   }
 }
 
+// Get current public ip address
 async function getPublicIP(): Promise<string> {
   try {
     const res = await fetch("https://domains.google.com/checkip");
